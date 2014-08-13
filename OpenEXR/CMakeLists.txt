@@ -2,9 +2,12 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 PROJECT (openexr)
 
-# enable the tests
-ENABLE_TESTING()
+OPTION( BUILD_TESTS "Enable testing and build tests." ON )
 
+# enable the tests
+IF ( BUILD_TESTS )
+  ENABLE_TESTING()
+ENDIF ( BUILD_TESTS )
 
 # distro building 
 SET(CPACK_PACKAGE_VERSION_MAJOR "2")
@@ -24,7 +27,11 @@ INCLUDE ( CPack )
 OPTION (BUILD_SHARED_LIBS "Build Shared Libraries" ON)
 OPTION (USE_ZLIB_WINAPI   "Use ZLib Win API"       OFF)
 
-ADD_DEFINITIONS ( -DHAVE_CONFIG_H -DILM_IMF_TEST_IMAGEDIR="${CMAKE_SOURCE_DIR}/IlmImfTest/" )
+ADD_DEFINITIONS ( -DHAVE_CONFIG_H )
+
+IF ( BUILD_TESTS )
+  ADD_DEFINITIONS ( -DILM_IMF_TEST_IMAGEDIR="${CMAKE_SOURCE_DIR}/IlmImfTest/" )
+ENDIF ( BUILD_TESTS )
 
 INCLUDE_DIRECTORIES (
   config
@@ -122,8 +129,10 @@ ADD_SUBDIRECTORY ( IlmImfExamples )
 ##########################
 # Tests
 ##########################
-ADD_SUBDIRECTORY ( IlmImfTest )
-ADD_SUBDIRECTORY ( IlmImfFuzzTest )
+IF ( BUILD_TESTS )
+  ADD_SUBDIRECTORY ( IlmImfTest )
+  ADD_SUBDIRECTORY ( IlmImfFuzzTest )
+ENDIF ( BUILD_TESTS )
 
 
 ##########################
