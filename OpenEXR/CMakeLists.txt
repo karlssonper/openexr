@@ -3,6 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT (openexr)
 
 OPTION( BUILD_TESTS "Enable testing and build tests." ON )
+OPTION( BUILD_BIN "Build executable bin files." ON )
 
 # enable the tests
 IF ( BUILD_TESTS )
@@ -123,8 +124,9 @@ SET_TARGET_PROPERTIES ( IlmImf
 ##########################
 # Example Code
 ##########################
-ADD_SUBDIRECTORY ( IlmImfExamples )
-
+IF (BUILD_BIN)
+  ADD_SUBDIRECTORY ( IlmImfExamples )
+ENDIF (BUILD_BIN)
   
 ##########################
 # Tests
@@ -138,13 +140,15 @@ ENDIF ( BUILD_TESTS )
 ##########################
 # Binaries / Utilities
 ##########################
-ADD_SUBDIRECTORY ( exrheader )
-ADD_SUBDIRECTORY ( exrmaketiled )
-ADD_SUBDIRECTORY ( exrstdattr )
-ADD_SUBDIRECTORY ( exrmakepreview )
-ADD_SUBDIRECTORY ( exrenvmap )
-ADD_SUBDIRECTORY ( exrmultiview )
-ADD_SUBDIRECTORY ( exrmultipart )
+IF (BUILD_BIN)
+  ADD_SUBDIRECTORY ( exrheader )
+  ADD_SUBDIRECTORY ( exrmaketiled )
+  ADD_SUBDIRECTORY ( exrstdattr )
+  ADD_SUBDIRECTORY ( exrmakepreview )
+  ADD_SUBDIRECTORY ( exrenvmap )
+  ADD_SUBDIRECTORY ( exrmultiview )
+  ADD_SUBDIRECTORY ( exrmultipart )
+ENDIF (BUILD_BIN)
 
 
 ##########################
