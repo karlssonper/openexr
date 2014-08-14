@@ -6,8 +6,8 @@ ADD_EXECUTABLE ( b44ExpLogTable
   )
 TARGET_LINK_LIBRARIES ( b44ExpLogTable
   Half
-  Iex-2_1
-  IlmThread-2_1
+  Iex
+  IlmThread
   ${PTHREAD_LIB}
 )
 
@@ -20,10 +20,10 @@ ADD_CUSTOM_COMMAND (
   TARGET b44ExpLogTable 
   POST_BUILD
   COMMAND b44ExpLogTable > b44ExpLogTable.h
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/IlmImf
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/IlmImf
 )
 SET_SOURCE_FILES_PROPERTIES(
-  ${CMAKE_SOURCE_DIR}/IlmImf/b44ExpLogTable.h
+  ${PROJECT_SOURCE_DIR}/IlmImf/b44ExpLogTable.h
   PROPERTIES 
   HEADER_FILE_ONLY TRUE
   )
@@ -124,9 +124,9 @@ ADD_LIBRARY ( IlmImf ${LIB_TYPE}
 
 TARGET_LINK_LIBRARIES ( IlmImf 
   Half 
-  Iex-2_1 
-  Imath-2_1 
-  IlmThread-2_1 
+  Iex
+  Imath
+  IlmThread
   ${PTHREAD_LIB} ${ZLIB_LIBRARIES}
 )
 
@@ -136,7 +136,7 @@ ADD_DEPENDENCIES ( IlmImf b44ExpLogTable )
 SET_SOURCE_FILES_PROPERTIES (
   ImfB44Compressor.cpp
   PROPERTIES
-  OBJECT_DEPENDS ${CMAKE_SOURCE_DIR}/IlmImf/b44ExpLogTable.h
+  OBJECT_DEPENDS ${PROJECT_SOURCE_DIR}/IlmImf/b44ExpLogTable.h
 )
 
 # Libraries
@@ -149,7 +149,7 @@ INSTALL ( TARGETS
 
 # Headers
 INSTALL ( FILES
-  ${CMAKE_SOURCE_DIR}/config/OpenEXRConfig.h
+  ${PROJECT_SOURCE_DIR}/config/OpenEXRConfig.h
   ImfForward.h
   ImfExport.h
   ImfAttribute.h
